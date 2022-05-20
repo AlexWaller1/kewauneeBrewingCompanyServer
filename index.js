@@ -7,19 +7,13 @@ const comments = require("./Comments");
 // bringing in comments array
 
 const moment = require("moment");
+// requiring moment dependency
+
+const logger = require("./middleware/logger");
 
 const app = express();
 
 // Middleware functions are functions that have access to request and response
-
-const logger = (req, res, next) => {
-  console.log(
-    `${req.protocol}://${req.get("host")}${
-      req.originalUrl
-    }: ${moment().format()}`
-  );
-  next();
-};
 
 // Init middleware
 app.use(logger);
