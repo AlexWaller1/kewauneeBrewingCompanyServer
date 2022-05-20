@@ -15,28 +15,10 @@ const app = express();
 // Init middleware
 // app.use(logger);
 
-// Gets All Comments
-app.get("/api/comments", (req, res) => {
-  res.json(comments);
-});
-
-// Get Single Member
-app.get("/api/comments/:userId", (req, res) => {
-  const found = comments.some(
-    comment => comment.userId === parseInt(req.params.userId)
-  );
-
-  if (found) {
-    res.send(
-      comments.filter(comment => comment.userId === parseInt(req.params.userId))
-    );
-  } else {
-    res.status(400).json({ msg: `No comment with id of ${req.params.userId}` });
-  }
-});
-
 // set static folder
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/api/comments", require("./routes/api/comments"));
 
 const PORT = process.env.PORT || 3006;
 
