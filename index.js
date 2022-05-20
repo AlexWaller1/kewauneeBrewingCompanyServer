@@ -15,9 +15,14 @@ const app = express();
 // Init middleware
 // app.use(logger);
 
+// Body Parser Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// members API routes
 app.use("/api/comments", require("./routes/api/comments"));
 
 const PORT = process.env.PORT || 3006;
