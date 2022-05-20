@@ -2,14 +2,22 @@ const express = require("express");
 // must require express for all express servers
 const path = require("path");
 // path is for joining files for proper routes
+
 const comments = require("./Comments");
+// bringing in comments array
+
+const moment = require("moment");
 
 const app = express();
 
 // Middleware functions are functions that have access to request and response
 
 const logger = (req, res, next) => {
-  console.log(`${req.protocol}://${req.get("host")}${req.originalUrl}`);
+  console.log(
+    `${req.protocol}://${req.get("host")}${
+      req.originalUrl
+    }: ${moment().format()}`
+  );
   next();
 };
 
