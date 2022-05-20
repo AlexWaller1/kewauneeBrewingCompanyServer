@@ -65,4 +65,23 @@ router.put("/:userId", (req, res) => {
   }
 });
 
+router.delete("/:userId", (req, res) => {
+  const found = comments.some(
+    comment => comment.userId === parseInt(req.params.userId)
+  );
+
+  if (found) {
+    res.json({
+      msg: "Comment Deleted",
+      comments: comments.filter(
+        comment => comment.userId !== parseInt(req.params.userId)
+      )
+    });
+  } else {
+    res
+      .status(400)
+      .json({ msg: `No comment with the id of ${req.params.userId}` });
+  }
+});
+
 module.exports = router;
