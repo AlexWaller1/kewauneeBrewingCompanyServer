@@ -6,9 +6,6 @@ const path = require("path");
 const comments = require("./Comments");
 // bringing in comments array
 
-const moment = require("moment");
-// requiring moment dependency
-
 const logger = require("./middleware/logger");
 
 const app = express();
@@ -16,11 +13,16 @@ const app = express();
 // Middleware functions are functions that have access to request and response
 
 // Init middleware
-app.use(logger);
+// app.use(logger);
 
 // Gets All Comments
 app.get("/api/comments", (req, res) => {
   res.json(comments);
+});
+
+// Get Single Member
+app.get("/api/comments/:userId", (req, res) => {
+  res.send(req.params.userId);
 });
 
 // set static folder
