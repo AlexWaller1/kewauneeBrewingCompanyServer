@@ -22,7 +22,17 @@ app.get("/api/comments", (req, res) => {
 
 // Get Single Member
 app.get("/api/comments/:userId", (req, res) => {
-  res.send(req.params.userId);
+  const found = comments.some(
+    comment => comment.userId === parseInt(req.params.userId)
+  );
+
+  if (found) {
+    res.send(
+      comments.filter(comment => comment.userId === parseInt(req.params.userId))
+    );
+  } else {
+    res.status(400).json({ msg: `No comment with id of ${req.params.userId}` });
+  }
 });
 
 // set static folder
