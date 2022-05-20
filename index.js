@@ -2,32 +2,21 @@ const express = require("express");
 // must require express for all express servers
 const path = require("path");
 // path is for joining files for proper routes
+const comments = require("./Comments");
 
 const app = express();
 
-const comments = [
-  {
-    userId: 34,
-    userName: "user 1",
-    text: "had a great time at the Kewaunee Brewing Company"
-  },
-  {
-    userId: 340,
-    userName: "user 2",
-    text: "burgers were amazing"
-  },
-  {
-    userId: 3579,
-    userName: "user 3",
-    text: "beer is top of the line"
-  },
-  {
-    userId: 45867,
-    userName: "user 4",
-    text: "extremely dog friendly"
-  }
-];
+// Middleware functions are functions that have access to request and response
 
+const logger = (req, res, next) => {
+  console.log("Hello Oa");
+  next();
+};
+
+// Init middleware
+app.use(logger);
+
+// Gets All Comments
 app.get("/api/comments", (req, res) => {
   res.json(comments);
 });
