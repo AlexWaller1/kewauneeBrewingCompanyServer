@@ -41,25 +41,27 @@ router.post("/", (req, res) => {
 });
 
 // Update Member
-router.put("/:id", (req, res) => {
+router.put("/:userId", (req, res) => {
   const found = comments.some(
-    comment => comment.userId === parseInt(req.body.id)
+    comment => comment.userId === parseInt(req.params.userId)
   );
 
   if (found) {
     const updComment = req.body;
     comments.forEach(comment => {
-      if (comment.id === parseInt(req.params.id)) {
+      if (comment.userId === parseInt(req.params.userId)) {
         comment.userName = updComment.userName
           ? updComment.name
           : comment.userName;
         comment.text = updComment.text ? updComment.text : comment.text;
 
-        res.json({ msg: "Member updated", member });
+        res.json({ msg: "comment updated", comment });
       }
     });
   } else {
-    res.status(400).json({ msg: `No comment with the id of ${req.params.id}` });
+    res
+      .status(400)
+      .json({ msg: `No comment with the id of ${req.params.userId}` });
   }
 });
 
