@@ -1,23 +1,31 @@
-const comments = [
+let comments = [
   {
-    userId: 34,
-    userName: "user 1",
-    text: "had a great time at the Kewaunee Brewing Company"
+    userId: "34",
+
+    title: "Great Friday Night",
+    text: "had a great time at the Kewaunee Brewing Company",
+    clicked: false
   },
   {
-    userId: 340,
-    userName: "user 2",
-    text: "burgers were amazing"
+    userId: "340",
+
+    title: "Food Very High Quality",
+    text: "burgers were amazing",
+    clicked: false
   },
   {
-    userId: 3579,
-    userName: "user 3",
-    text: "beer is top of the line"
+    userId: "3459",
+
+    title: "Great Beer on Tap",
+    text: "beer is top of the line",
+    clicked: false
   },
   {
-    userId: 45867,
-    userName: "user 4",
-    text: "extremely dog friendly"
+    userId: "4586",
+
+    title: "We Go So We Can Bring Our Dog",
+    text: "extremely dog friendly",
+    clicked: false
   }
 ];
 

@@ -2,9 +2,7 @@ const express = require("express");
 // must require express for all express servers
 const path = require("path");
 // path is for joining files for proper routes
-
-const comments = require("./Comments");
-// bringing in comments array
+const bodyParser = require("body-parser");
 
 const logger = require("./middleware/logger");
 
@@ -17,7 +15,19 @@ const app = express();
 
 // Body Parser Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }))
+
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 // set static folder
 app.use(express.static(path.join(__dirname, "public")));

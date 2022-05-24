@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const uuid = require("uuid");
-const comments = require("../../Comments");
+let comments = require("../../Comments");
 
 // Gets All Comments
 router.get("/", (req, res) => {
@@ -25,15 +25,18 @@ router.get("/:userId", (req, res) => {
 
 // create Member
 router.post("/", (req, res) => {
+  console.log(req.body);
+
   const newComment = {
-    id: uuid.v4(),
-    userName: req.body.userName,
-    text: req.body.text
+    userId: uuid.v4(),
+    title: req.body.title,
+    text: req.body.text,
+    clicked: req.body.clicked
   };
 
-  if (!newComment.userName || !newComment.text) {
-    return res.status(400).json({ msg: "Please include name and comment" });
-  }
+  //   if (!newComment.title || !newComment.text) {
+  //     return res.status(400).json({ msg: "Please include name and comment" });
+  //   }
   comments.push(newComment);
   // push new comment to comments array
   res.json(comments);
@@ -66,17 +69,11 @@ router.put("/:userId", (req, res) => {
 });
 
 router.delete("/:userId", (req, res) => {
-  const found = comments.some(
-    comment => comment.userId === parseInt(req.params.userId)
-  );
+  const found = comments.some(comment => comment.userId === req.params.userId);
 
   if (found) {
-    res.json({
-      msg: "Comment Deleted",
-      comments: comments.filter(
-        comment => comment.userId !== parseInt(req.params.userId)
-      )
-    });
+    comments = comments.filter(comment => comment.userId !== req.params.userId);
+    res.json(comments);
   } else {
     res
       .status(400)
