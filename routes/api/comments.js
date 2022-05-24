@@ -25,6 +25,7 @@ router.get("/:userId", (req, res) => {
 
 // create Member
 router.post("/", (req, res) => {
+  console.log("POST Request");
   console.log(req.body);
 
   const newComment = {
@@ -44,23 +45,23 @@ router.post("/", (req, res) => {
 });
 
 // Update Member
-router.put("/:userId", (req, res) => {
-  const found = comments.some(
-    comment => comment.userId === parseInt(req.params.userId)
-  );
+router.put("/", (req, res) => {
+  console.log("PUT Request");
+  console.log(req.body);
+
+  const found = comments.some(comment => comment.userId === req.body.userId);
+
+  console.log(found);
 
   if (found) {
     const updComment = req.body;
     comments.forEach(comment => {
-      if (comment.userId === parseInt(req.params.userId)) {
-        comment.userName = updComment.userName
-          ? updComment.name
-          : comment.userName;
+      if (comment.userId === req.body.userId) {
+        comment.title = updComment.title ? updComment.title : comment.title;
         comment.text = updComment.text ? updComment.text : comment.text;
-
-        res.json({ msg: "comment updated", comment });
       }
     });
+    res.json(comments);
   } else {
     res
       .status(400)
